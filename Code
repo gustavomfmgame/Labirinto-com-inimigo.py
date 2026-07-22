@@ -1,0 +1,96 @@
+import os
+import msvcrt
+import time
+from collections import deque
+linha1= ["#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#"]
+linha2= ["#"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","#"]
+linha3= ["#","#","#","#","#"," ","#","#","#","#","#","#","#","#","#","#"," "," "," ","#"]
+linha4= ["#"," "," "," "," "," ","#"," "," "," "," "," "," ","#"," "," "," "," "," ","#"]
+linha5= ["#"," ","#"," ","#","#","#"," ","#","#","#","#"," ","#"," ","#","#","#"," ","#"]
+linha6= ["#"," ","#"," "," "," "," "," ","#"," "," "," "," ","#"," ","#"," "," "," ","#"]
+linha7= ["#"," ","#","#","#"," ","#","#","#"," ","#","#","#","#"," ","#"," ","#","#","#"]
+linha8= ["#"," "," "," ","#"," "," "," "," "," "," "," ","#"," "," "," "," "," "," ","#"]
+linha9= ["#","#","#","#","#","#","#"," ","#","#","#"," ","#","#","#","#","#","#"," ","#"]
+linha10=["#","S"," "," ","#","#","#"," "," "," ","#"," "," "," ","#"," "," "," "," ","#"]
+linha11=["#"," "," "," ","#"," ","#","#","#"," ","#"," ","#"," ","#"," ","#","#"," ","#"]
+linha12=["#"," ","#"," ","#"," "," "," "," "," ","#"," ","#"," "," "," ","#","#"," ","#"]
+linha13=["#"," ","#"," ","#"," ","#","#","#","#","#"," ","#","#","#","#","#","#"," ","#"]
+linha14=["#"," "," "," "," "," "," "," "," ","#"," "," "," "," "," "," "," "," "," ","#"]
+linha15=["#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#"]
+
+matriz = [linha1,linha2,linha3,linha4,linha5,linha6,linha7,linha8,linha9,linha10,linha11,linha12,linha13,linha14,linha15]
+
+X=1
+Y=1
+xi = 13
+yi = 18
+velinimigo = 0
+posicaoinimiga = 0
+caminhoinimigo = []
+novalinha = 0
+novacoluna = 0
+
+
+while True:
+    fila = deque()
+    visitados = set()
+    fila.append((xi,yi))
+    visitados.add((xi,yi))
+    pai = {}
+    os.system("cls")
+    for i, coluna in enumerate(matriz):
+        for j, caractere in enumerate(coluna):
+            if (i, j) == (X, Y):
+                print("P", end=" ")
+            elif (i, j) == (xi, yi):
+                print("V", end=" ")
+            else:
+                print(caractere, end=" ")
+        print(" ")
+
+    posicaoinimiga = 0
+    while fila:
+        linha, coluna = fila.popleft()
+
+        vizinhos = [[0,1],[0,-1],[1,0],[-1,0]]
+        for auxlinha, auxcoluna in vizinhos:
+            novalinha, novacoluna = linha+auxlinha, coluna+auxcoluna
+            
+            if (novalinha, novacoluna) in visitados or matriz[novalinha][novacoluna] == '#':
+                continue
+            fila.append((novalinha,novacoluna))
+            visitados.add((novalinha,novacoluna))
+            pai[(novalinha, novacoluna)] = (linha, coluna)  
+
+    x = (X,Y)
+    while True:
+        if x == (xi, yi) or x not in pai:
+            break
+        posicao = pai[x]
+        caminhoinimigo.append(posicao)
+        x=posicao
+
+    caminhoinimigo.reverse()
+    
+    if msvcrt.kbhit():
+        direcao = msvcrt.getch().decode("utf-8").upper()
+        if direcao == 'W' and matriz[X-1][Y]!='#':
+            X -= 1
+        elif direcao == 'A' and matriz[X][Y-1]!= '#':
+            Y -= 1
+        elif direcao == 'S' and matriz[X+1][Y]!='#':
+            X += 1
+        elif direcao == 'D' and matriz[X][Y+1]!='#':
+            Y += 1
+
+
+    if velinimigo % 3 == 0:
+        posicaoinimiga += 1
+        if len(caminhoinimigo) == posicaoinimiga or (xi, yi)==(X, Y):
+            print(f"{30*'='}\n          GAME OVER\n{30*'='}")
+            break
+        else:
+            (xi, yi) = caminhoinimigo[posicaoinimiga]
+    velinimigo += 1
+    caminhoinimigo=[]
+    time.sleep(0.1)
