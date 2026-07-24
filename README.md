@@ -15,3 +15,5 @@ Projeto desenvolvido para praticar estruturas de dados e algoritmos.
 - collections.deque
 - set
 - dicionários
+
+<img width="566" height="580" alt="Image" src="https://github.com/user-attachments/assets/e706ac39-71aa-43ab-aa2f-863fedb8c374" />
