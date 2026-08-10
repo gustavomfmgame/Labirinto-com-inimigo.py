@@ -1,4 +1,4 @@
-# Labirinto-com-inimigo.py
+# Labirinto-com-inimigo
 
 Projeto desenvolvido para praticar estruturas de dados e algoritmos.
 
