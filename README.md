@@ -16,4 +16,4 @@ Projeto desenvolvido para praticar estruturas de dados e algoritmos.
 - set
 - dicionários
 
-<img width="566" height="580" alt="Image" src="https://github.com/user-attachments/assets/e706ac39-71aa-43ab-aa2f-863fedb8c374" />
+https://github.com/user-attachments/assets/fd840db4-c689-4564-be29-75650a87dd85
